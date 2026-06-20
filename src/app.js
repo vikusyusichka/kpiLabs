@@ -1,6 +1,7 @@
 const express = require('express');
 const authRouter = require('./auth/auth.controller');
 const studentsRouter = require('./students/students.controller');
+const sessionsRouter = require('./sessions/sessions.controller');
 const { requireAuth } = require('./middleware/auth');
 
 function createApp() {
@@ -14,6 +15,7 @@ function createApp() {
 
   app.use('/api/auth', authRouter);
   app.use('/api/students', requireAuth, studentsRouter);
+  app.use('/api/sessions', requireAuth, sessionsRouter);
 
   app.use((req, res) => {
     res.status(404).json({ message: 'Route not found' });
